@@ -12,9 +12,9 @@ export const LOADING_MESSAGES = [
 
 export const BUDGET_OPTIONS = [
   { value: "", label: "預算不限" },
-  { value: "cheap", label: "$ 便宜 (100以下)" },
-  { value: "moderate", label: "$$ 中價位 (100-300)" },
-  { value: "expensive", label: "$$$ 豪華 (300-800)" },
+  { value: "cheap", label: "$ 便宜 (100-200)" },
+  { value: "moderate", label: "$$ 中價位 (200-400)" },
+  { value: "expensive", label: "$$$ 豪華 (400-800)" },
   { value: "luxury", label: "$$$$ 慶祝專用 (800+)" },
 ];
 

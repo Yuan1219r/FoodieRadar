@@ -16,8 +16,8 @@ export default defineConfig(({ mode }) => {
           registerType: 'autoUpdate',
           includeAssets: ['logo.png'],
           manifest: {
-            name: 'FoodieRadar',
-            short_name: 'FoodieRadar',
+            name: '猴子美食雷達',
+            short_name: '猴子美食雷達',
             description: 'Food discovery app',
             theme_color: '#0a0d10',
             background_color: '#0a0d10',
