@@ -14,6 +14,43 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({ data }) => {
     setImgSrc(data.imageUrl);
   }, [data.imageUrl]);
 
+  const isStandalone = () => {
+    return window.matchMedia('(display-mode: standalone)').matches || (window.navigator as Navigator & { standalone?: boolean }).standalone === true;
+  };
+
+  const getMapsQuery = () => {
+    try {
+      const url = new URL(data.googleMapsUrl || '');
+      return url.searchParams.get('query') || url.searchParams.get('q') || '';
+    } catch {
+      return '';
+    }
+  };
+
+  const getPreferredMapsUrl = () => {
+    const query = getMapsQuery();
+    if (!query) return '';
+    const ua = navigator.userAgent.toLowerCase();
+
+    if (ua.includes('iphone') || ua.includes('ipad') || ua.includes('ipod')) {
+      return `comgooglemaps://?q=${encodeURIComponent(query)}`;
+    }
+
+    if (ua.includes('android')) {
+      return `intent://maps.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}#Intent;scheme=https;package=com.google.android.apps.maps;end`;
+    }
+
+    return '';
+  };
+
+  const handleOpenMaps = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!isStandalone()) return;
+    const preferredUrl = getPreferredMapsUrl();
+    if (!preferredUrl) return;
+    event.preventDefault();
+    window.location.href = preferredUrl;
+  };
+
   const handleImageError = () => {
     const fallback = getConsistentFallbackImage(data.name);
     if (imgSrc !== fallback) setImgSrc(fallback);
@@ -28,7 +65,8 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({ data }) => {
   return (
     <a 
       href={data.googleMapsUrl}
-      target="_blank"
+      onClick={handleOpenMaps}
+      target={isStandalone() ? "_self" : "_blank"}
       rel="noopener noreferrer"
       className="sheen liquid-glass rounded-[32px] overflow-hidden hover:shadow-glass-hover hover:-translate-y-3 transition-all duration-500 block h-full flex flex-col group border-white/10"
     >
