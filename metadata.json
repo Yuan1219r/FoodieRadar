@@ -1,0 +1,8 @@
+{
+  "name": "Ψ(￣▽￣)Ψ - Dark Premium Food Discovery",
+  "description": "A single-page, ultra-focused restaurant finder with a dark modern aesthetic and AI-powered search.",
+  "requestFramePermissions": [
+    "microphone",
+    "geolocation"
+  ]
+}
